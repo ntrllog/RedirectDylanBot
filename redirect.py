@@ -11,8 +11,8 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
-    if message.author.id == os.getenv('SENDER_ID'):
-        channel = client.get_channel(os.getenv('CHANNEL_ID'))
+    if message.author.id == int(os.getenv('SENDER_ID')):
+        channel = client.get_channel(int(os.getenv('CHANNEL_ID')))
         await channel.send(message.content)
         await message.delete()
 
