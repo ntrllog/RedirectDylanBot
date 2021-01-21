@@ -1,4 +1,4 @@
-import discord
+import discord, os, keep_alive
 
 client = discord.Client()
 
@@ -11,9 +11,11 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
-    if message.author.id == process.env.SENDER_ID:
-        channel = client.get_channel(process.env.CHANNEL_ID)
+    if message.author.id == os.getenv('SENDER_ID'):
+        channel = client.get_channel(os.getenv('CHANNEL_ID'))
         await channel.send(message.content)
         await message.delete()
 
-client.run(process.env.CLIENT_TOKEN)
+keep_alive.keep_alive()
+
+client.run(os.getenv('CLIENT_TOKEN'))
